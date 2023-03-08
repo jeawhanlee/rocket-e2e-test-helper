@@ -75,7 +75,45 @@ class Template {
         );
     }
 
+    /**
+     * Load main view.
+     *
+     * @return void
+     */
     public function admin_page() : void {
         require_once CONFIG[ 'PLUGIN_PATH' ] . 'views/main.php';
+    }
+
+    /**
+     * Load module view.
+     *
+     * @param string $id module id.
+     * @return void
+     */
+    public function load_module( string $id ): void {
+        if ( ! $this->is_valid_module( $id ) ) {
+            $this->admin_page();
+            return;
+        }
+
+        require_once CONFIG[ 'PLUGIN_PATH' ] . 'views/modules/' . $id;
+    }
+
+    /**
+     * Check valid module.
+     *
+     * @param string $id module id.
+     * @return boolean
+     */
+    private function is_valid_module( string $id ) : bool {
+        foreach ( $this->modules as $module ) {
+            $file = str_replace( '', '_', strtolower( $module['name'] ) );
+
+            if ( $id === $file ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
