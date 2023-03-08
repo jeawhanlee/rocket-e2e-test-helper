@@ -14,47 +14,47 @@ class Template {
      */
     protected $modules = [
         [   
-            'name' => 'cache',
+            'name' => 'Cache',
             'id' => 'cache_tab',
             'pane' => 'cache_tab_pane',
         ],
         [
-            'name' => 'file optimization',
+            'name' => 'File Optimization',
             'id' => 'file_optimization_tab',
             'pane' => 'file_optimization_tab_pane',
         ],
         [
-            'name' => 'media',
+            'name' => 'Media',
             'id' => 'media_tab',
             'pane' => 'media_tab_pane',
         ],
         [
-            'name' => 'preload',
+            'name' => 'Preload',
             'id' => 'preload_tab',
             'pane' => 'preload_tab_pane',
         ],
         [
-            'name' => 'advanced rules',
+            'name' => 'Advanced Rules',
             'id' => 'advanced_rules_tab',
             'pane' => 'advanced_rules_tab_pane',
         ],
         [
-            'name' => 'database',
+            'name' => 'Database',
             'id' => 'database_tab',
             'pane' => 'database_tab_pane',
         ],
         [
-            'name' => 'cdn',
+            'name' => 'CDN',
             'id' => 'cdn_tab',
             'pane' => 'cdn_tab_pane',
         ],
         [
-            'name' => 'heartbeat',
+            'name' => 'Heartbeat',
             'id' => 'heartbeat_tab',
             'pane' => 'heartbeat_pane',
         ],
         [
-            'name' => 'addons',
+            'name' => 'Addons',
             'id' => 'addons_tab',
             'pane' => 'addons_pane',
         ],
