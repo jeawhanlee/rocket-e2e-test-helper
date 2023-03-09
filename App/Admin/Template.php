@@ -90,7 +90,7 @@ class Template {
      * @param string $id module id.
      * @return void
      */
-    public function load_module( string $id ): void {
+    public function load_view( string $id ): void {
         if ( ! $this->is_valid_module( $id ) ) {
             $id = 'cache';
         }
