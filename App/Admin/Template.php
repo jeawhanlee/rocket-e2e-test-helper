@@ -15,47 +15,47 @@ class Template {
     protected $modules = [
         [   
             'name' => 'Cache',
-            'id' => 'cache_tab',
+            'id' => 'cache',
             'pane' => 'cache_tab_pane',
         ],
         [
             'name' => 'File Optimization',
-            'id' => 'file_optimization_tab',
+            'id' => 'file_optimization',
             'pane' => 'file_optimization_tab_pane',
         ],
         [
             'name' => 'Media',
-            'id' => 'media_tab',
+            'id' => 'media',
             'pane' => 'media_tab_pane',
         ],
         [
             'name' => 'Preload',
-            'id' => 'preload_tab',
+            'id' => 'preload',
             'pane' => 'preload_tab_pane',
         ],
         [
             'name' => 'Advanced Rules',
-            'id' => 'advanced_rules_tab',
+            'id' => 'advanced_rules',
             'pane' => 'advanced_rules_tab_pane',
         ],
         [
             'name' => 'Database',
-            'id' => 'database_tab',
+            'id' => 'database',
             'pane' => 'database_tab_pane',
         ],
         [
             'name' => 'CDN',
-            'id' => 'cdn_tab',
+            'id' => 'cdn',
             'pane' => 'cdn_tab_pane',
         ],
         [
             'name' => 'Heartbeat',
-            'id' => 'heartbeat_tab',
+            'id' => 'heartbeat',
             'pane' => 'heartbeat_pane',
         ],
         [
             'name' => 'Addons',
-            'id' => 'addons_tab',
+            'id' => 'addons',
             'pane' => 'addons_pane',
         ],
     ];
@@ -92,11 +92,10 @@ class Template {
      */
     public function load_module( string $id ): void {
         if ( ! $this->is_valid_module( $id ) ) {
-            $this->admin_page();
-            return;
+            $id = 'cache';
         }
 
-        require_once CONFIG[ 'PLUGIN_PATH' ] . 'views/modules/' . $id;
+        require_once CONFIG[ 'PLUGIN_PATH' ] . 'views/modules/' . $id . '.php';
     }
 
     /**
@@ -107,9 +106,7 @@ class Template {
      */
     private function is_valid_module( string $id ) : bool {
         foreach ( $this->modules as $module ) {
-            $file = str_replace( '', '_', strtolower( $module['name'] ) );
-
-            if ( $id === $file ) {
+            if ( $id === $module['id'] ) {
                 return true;
             }
         }
