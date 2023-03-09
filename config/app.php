@@ -12,4 +12,7 @@ return [
 
     // Plugin ID.
     'PLUGIN_ID' => 'rocket_e2e_tests_helper',
+
+    // Plugin URL.
+    'PLUGIN_URL' => plugin_dir_url( $plugin_file ),
 ];
