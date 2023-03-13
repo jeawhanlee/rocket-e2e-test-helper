@@ -8,11 +8,11 @@ namespace WP_Rocket_e2e\App\Admin;
 class Template {
 
     /**
-     * Array of Modules.
+     * Array of Module views.
      *
-     * @var array Array of WP Rocket Modules
+     * @var array Array of WP Rocket Module views.
      */
-    protected $modules = [
+    protected $views = [
         [   
             'name' => 'Cache',
             'id' => 'cache',
@@ -95,7 +95,13 @@ class Template {
             $id = 'cache';
         }
 
+        $this->cache();
+
         require_once CONFIG[ 'PLUGIN_PATH' ] . 'views/modules/' . $id . '.php';
+    }
+
+    private function cache() {
+        apply_filters( 'rocket_e2e_should_generate_cache_for_logged_in_users', false );
     }
 
     /**
@@ -105,8 +111,8 @@ class Template {
      * @return boolean
      */
     private function is_valid_module( string $id ) : bool {
-        foreach ( $this->modules as $module ) {
-            if ( $id === $module['id'] ) {
+        foreach ( $this->views as $view ) {
+            if ( $id === $view['id'] ) {
                 return true;
             }
         }
