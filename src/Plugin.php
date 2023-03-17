@@ -5,6 +5,7 @@ namespace WP_Rocket_e2e;
 use League\Container\Container;
 use WP_Rocket_e2e\Events\Event_Manager;
 use WP_Rocket_e2e\App\ServiceProvider as AssetsServiceProvider;
+use WP_Rocket_e2e\App\Modules\ServiceProvider as ModulesServiceProvider;
 
 class Plugin {
     protected $container;
@@ -23,6 +24,7 @@ class Plugin {
 
         $this->filter_subscribers();
         $this->container->addServiceProvider( new AssetsServiceProvider );
+        $this->container->addServiceProvider( new ModulesServiceProvider );
 
         foreach ( Subscriber::get() as $subscriber ) {
             $this->event_manager->add_subscriber( $this->container->get( $subscriber ) );
