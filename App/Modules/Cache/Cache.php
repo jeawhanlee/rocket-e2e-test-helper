@@ -4,12 +4,23 @@ namespace WP_Rocket_e2e\App\Modules\Cache;
 
 class Cache {
 
+    /**
+     * Cache tests paths.
+     *
+     * @var array Array of url paths to be tested against.
+     */
     private $cache_test_paths = [
         'consequatur-non-qui-facilis',
         'alias-vel-provident-quo',
     ];
 
-    public function is_user_cache_generated() {
+    /**
+     * Check that cache(user/non-user) cache is generated.
+     *
+     * @param boolean $user_cache check for user cache if true.
+     * @return boolean
+     */
+    public function is_cache_generated( $user_cache = false ) : bool {
         /**
          * Filters the cache test path.
          * 
@@ -18,7 +29,7 @@ class Cache {
         $paths = apply_filters( 'rocket_e2e_cache_test_paths', $this->cache_test_paths );
 
         foreach ( $paths as $path ) {
-            if ( ! rocket_direct_filesystem()->exists( $this->get_cache_root_dir( true ) . '/' . $path ) ) {
+            if ( ! rocket_direct_filesystem()->exists( $this->get_cache_root_dir( $user_cache ) . '/' . $path ) ) {
                 return false;
             }
         }
@@ -35,6 +46,7 @@ class Cache {
     private function get_cache_root_dir( $user_cache = false ) : string {
         $url = get_site_url();
 
+        $parse_url = get_rocket_parse_url( $url );
         $cache_dir = $parse_url['host'];
 
         // If testing for user cache.
@@ -43,7 +55,6 @@ class Cache {
             wp_get_current_user();
 
             $user_key = $current_user->user_login . '-' . get_rocket_option( 'secret_cache_key' );
-            $parse_url = get_rocket_parse_url( $url );
 
             $cache_dir = $parse_url['host'] . '-' . $user_key;
             $cache_dir = $this->sanitize_key( $cache_dir );
