@@ -9,7 +9,8 @@ use WP_Rocket_e2e\App\Assets\Assets;
 use WP_Rocket_e2e\App\Assets\Subscriber as AssetsSubscriber;
 
 use WP_Rocket_e2e\App\Admin\Template;
-use WP_Rocket_e2e\App\Admin\Subscriber as TemplateSubscriber;
+use WP_Rocket_e2e\App\Admin\Pages;
+use WP_Rocket_e2e\App\Admin\Subscriber as AdminSubscriber;
 
 class ServiceProvider extends AbstractServiceProvider {
 
@@ -19,7 +20,8 @@ class ServiceProvider extends AbstractServiceProvider {
             'assets',
             'assets_subscriber',
             'template',
-            'template_subscriber',
+            'pages',
+            'admin_subscriber',
         ];
         
         return in_array( $id, $services );
@@ -34,8 +36,10 @@ class ServiceProvider extends AbstractServiceProvider {
         ->addArgument( $this->getContainer()->get( 'assets' ) );
 
         $this->getContainer()->add( 'template', Template::class );
-
-        $this->getContainer()->add( 'template_subscriber', TemplateSubscriber::class )
+        $this->getContainer()->add( 'pages', Pages::class )
         ->addArgument( $this->getContainer()->get( 'template' ) );
+
+        $this->getContainer()->add( 'admin_subscriber', AdminSubscriber::class )
+        ->addArgument( $this->getContainer()->get( 'pages' ) );
     }
 }

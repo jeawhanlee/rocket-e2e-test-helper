@@ -11,11 +11,11 @@ use WP_Rocket_e2e\Events\Subscriber_Interface;
 class Subscriber implements Subscriber_Interface {
 
     /**
-     * Template instance.
+     * Pages instance.
      *
-     * @var Template
+     * @var Pages
      */
-    protected $template;
+    protected $pages;
 
     /**
      * Instatiate class
@@ -23,8 +23,8 @@ class Subscriber implements Subscriber_Interface {
      * @param Template $template Template instance.
      * @return void
      */
-    public function __construct( Template $template ) {
-        $this->template = $template;
+    public function __construct( Pages $pages ) {
+        $this->pages = $pages;
     }
 
 	/**
@@ -44,6 +44,12 @@ class Subscriber implements Subscriber_Interface {
      * @return void
      */
     public function admin_menu() : void {
-        $this->template->admin_menu();
+        add_management_page( 
+            CONFIG['PLUGIN'], 
+            CONFIG['PLUGIN'],
+            'install_plugins',
+            CONFIG['PLUGIN_ID'],
+            [ $this->pages, 'render_views' ]
+        );
     }
 }

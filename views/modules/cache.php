@@ -1,6 +1,6 @@
 
 <div class="row">
-  <?php foreach ( $this->views['cache']['test_cases'] as $test_case_id => $test_case ) : ?>
+  <?php foreach ( $this->modules['cache']['test_cases'] as $test_case_id => $test_case ) : ?>
     <div class="col-sm-3 mb-3 mb-sm-0">
     <div class="card">
       <div class="card-body">
