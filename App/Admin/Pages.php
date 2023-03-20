@@ -55,5 +55,12 @@ class Pages {
             'Should generate cache files for logged-in users',
             apply_filters( 'rocket_e2e_should_generate_cache_for_logged_in_users', false )
         );
+
+        $this->template->add_test_case(
+            'cache',
+            'should_generate_cache_files',
+            'Should generate cache files for page visitors',
+            apply_filters( 'rocket_e2e_should_generate_cache', false )
+        );
     }
 }
