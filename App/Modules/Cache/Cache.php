@@ -21,6 +21,10 @@ class Cache {
      * @return boolean
      */
     public function is_cache_generated( $user_cache = false ) : bool {
+        if ( $user_cache && ! $this->cache_logged_user() ) {
+            return false;
+        }
+
         /**
          * Filters the cache test path.
          * 
@@ -38,15 +42,30 @@ class Cache {
     }
 
     /**
-     * Check that only common cache folder is created when common
+     * Check that common cache folder is created when common
      * cache is active and caching for logged in user is enabled.
      *
      * @return boolean
      */
-    public function is_only_common_cache_folder_found() : bool {
+    public function is_common_cache_folder_found() : bool {
         if ( ! $this->is_common_cache_enabled() ) {
             return false;
         }
+
+        if ( ! rocket_direct_filesystem()->exists( $this->get_cache_root_dir( true, true ) . '/index.html' ) ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Return current setting state for caching logged-in users.
+     *
+     * @return boolean
+     */
+    public function cache_logged_user() : bool {
+        return (bool) get_rocket_option( 'cache_logged_user', 0 );
     }
 
     /**
@@ -54,18 +73,14 @@ class Cache {
      *
      * @return boolean
      */
-    private function is_common_cache_enabled() : bool {
+    public function is_common_cache_enabled() : bool {
         // Get rocket config buffer.
         $config_buffer = get_rocket_config_file()[1];
-        if ( ! preg_match( '/\$rocket_common_cache_logged_users\s*=\s*(?<value>[0-9];)/', $config_buffer, $value ) ) {
+        if ( ! preg_match( '/\$rocket_common_cache_logged_users\s*=\s*(?<value>[0-9])/', $config_buffer, $value ) ) {
             return false;
         }
 
-        if ( 1 !== $value['value'] ) {
-            return false;
-        }
-
-        return true;
+        return (bool) $value['value'];
     }
 
     /**
@@ -74,7 +89,7 @@ class Cache {
      * @param boolean $user_cache True if test case is user cache.
      * @return string
      */
-    private function get_cache_root_dir( $user_cache = false ) : string {
+    private function get_cache_root_dir( $user_cache = false, $common_cache = false ) : string {
         $url = get_site_url();
 
         $parse_url = get_rocket_parse_url( $url );
@@ -82,10 +97,14 @@ class Cache {
 
         // If testing for user cache.
         if ( $user_cache ) {
-            global $current_user;
-            wp_get_current_user();
+            if ( ! $common_cache ) {
+                global $current_user;
+                wp_get_current_user();
+            }
 
-            $user_key = $current_user->user_login . '-' . get_rocket_option( 'secret_cache_key' );
+            $secret_cache_key = get_rocket_option( 'secret_cache_key' );
+            $user_key = ! $common_cache ? $current_user->user_login . '-' : 'loggedin-';
+            $user_key = $user_key . $secret_cache_key;
 
             $cache_dir = $parse_url['host'] . '-' . $user_key;
             $cache_dir = $this->sanitize_key( $cache_dir );
