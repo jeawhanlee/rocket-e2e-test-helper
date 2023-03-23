@@ -2,3 +2,11 @@
     color: #f56640;
     font-size: 0.9em;
 }
+
+.wpr-e2e-container h6 {
+    font-size: 0.9em;
+}
+
+.wpr-e2e-container .card-subtitle-box {
+    min-height:55px;
+}
