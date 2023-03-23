@@ -2,6 +2,8 @@
 
 namespace WP_Rocket_e2e\App\Admin;
 
+use WP_Rocket_e2e\App\Modules\Cache\Cache;
+
 /**
  * Handle pages view.
  */
@@ -12,6 +14,13 @@ class Pages {
      * @var Template
      */
     protected $template;
+
+    /**
+     * Cache instance.
+     *
+     * @var Cache
+     */
+    protected $cache;
 
     /**
      * Module views.
@@ -26,8 +35,9 @@ class Pages {
      * @param Template $template Template instance.
      * @return void
      */
-    public function __construct( Template $template ) {
+    public function __construct( Template $template, Cache $cache ) {
         $this->template = $template;
+        $this->cache = $cache;
     }
 
     /**
@@ -53,14 +63,14 @@ class Pages {
             'cache',
             'should_generate_cache_files_for_logged-in_users',
             'Should generate cache files for logged-in users',
-            apply_filters( 'rocket_e2e_should_generate_cache_for_logged_in_users', false )
+            $this->cache->is_cache_generated( true )
         );
 
         $this->template->add_test_case(
             'cache',
             'should_generate_cache_files',
             'Should generate cache files for page visitors',
-            apply_filters( 'rocket_e2e_should_generate_cache', false )
+            $this->cache->is_cache_generated()
         );
     }
 }
