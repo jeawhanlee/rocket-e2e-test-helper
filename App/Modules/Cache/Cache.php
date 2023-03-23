@@ -38,6 +38,37 @@ class Cache {
     }
 
     /**
+     * Check that only common cache folder is created when common
+     * cache is active and caching for logged in user is enabled.
+     *
+     * @return boolean
+     */
+    public function is_only_common_cache_folder_found() : bool {
+        if ( ! $this->is_common_cache_enabled() ) {
+            return false;
+        }
+    }
+
+    /**
+     * Check if common cache is active.
+     *
+     * @return boolean
+     */
+    private function is_common_cache_enabled() : bool {
+        // Get rocket config buffer.
+        $config_buffer = get_rocket_config_file()[1];
+        if ( ! preg_match( '/\$rocket_common_cache_logged_users\s*=\s*(?<value>[0-9];)/', $config_buffer, $value ) ) {
+            return false;
+        }
+
+        if ( 1 !== $value['value'] ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Return root cache directory.
      *
      * @param boolean $user_cache True if test case is user cache.
