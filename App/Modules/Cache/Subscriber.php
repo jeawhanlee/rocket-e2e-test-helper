@@ -32,27 +32,6 @@ class Subscriber implements Subscriber_Interface {
 	 * @return array
 	 */
 	public static function get_subscribed_events() : array {
-		return [
-			'rocket_e2e_should_generate_cache_for_logged_in_users' => 'is_user_cache_generated',
-			'rocket_e2e_should_generate_cache' => 'is_cache_generated',
-		];
+		return [];
 	}
-
-    /**
-     * Check that user cache is generated.
-     *
-     * @return boolean
-     */
-    public function is_user_cache_generated() : bool {
-        return $this->cache->is_cache_generated( true );
-    }
-
-    /**
-     * Check that cache is generated.
-     *
-     * @return boolean
-     */
-    public function is_cache_generated() : bool {
-        return $this->cache->is_cache_generated();
-    }
 }
