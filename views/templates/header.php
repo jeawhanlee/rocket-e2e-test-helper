@@ -1,4 +1,4 @@
-<div class="container-fluid py-4">
+<div class="container-fluid py-4 wpr-e2e-container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <?php foreach ( $this->views as $view ) : ?>
             <li class="nav-item" role="presentation">
