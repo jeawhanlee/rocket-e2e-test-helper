@@ -8,5 +8,9 @@
 }
 
 .wpr-e2e-container .card-subtitle-box {
-    min-height:55px;
+    min-height:85px;
+}
+
+.wpr-e2e-container .font-sm {
+    font-size: 0.8em;
 }
