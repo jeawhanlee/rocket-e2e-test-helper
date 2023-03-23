@@ -63,6 +63,10 @@ class Pages {
             'cache',
             'should_generate_cache_files_for_logged-in_users',
             'Should generate cache files for logged-in users',
+            [
+                'text' =>  $this->cache->cache_logged_user() ? 'Caching for logged-in user is enabled' : 'Caching for logged-in user is disabled',
+                'type' => $this->cache->cache_logged_user() ? 'success' : 'warning',
+            ],
             $this->cache->is_cache_generated( true )
         );
 
@@ -70,7 +74,22 @@ class Pages {
             'cache',
             'should_generate_cache_files',
             'Should generate cache files for page visitors',
+            [
+                'text' => 'Visitors common cache',
+                'type' => 'info',
+            ],
             $this->cache->is_cache_generated()
+        );
+
+        $this->template->add_test_case(
+            'cache',
+            'should_use_same_cache_set_user_when_common_cache_is_enabled',
+            'Should use the same cache set for each user when common cache is enabled (Homepage Test)',
+            [
+                'text' => $this->cache->is_common_cache_enabled() ? 'Common cache is enabled' : 'Common cache is disabled',
+                'type' => $this->cache->is_common_cache_enabled() ? 'success' : 'warning',
+            ],
+            $this->cache->is_common_cache_folder_found()
         );
     }
 }
