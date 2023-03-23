@@ -100,9 +100,10 @@ class Template {
      * @param string $filter Filter.
      * @return void
      */
-    public function add_test_case( string $module, string $test_case_id, string $test_name, $filter = '' ) : void {
+    public function add_test_case( string $module, string $test_case_id, string $test_name, array $note = [], $filter = '' ) : void {
         $this->modules[ $module ]['test_cases'][ $test_case_id ] = [
                 'name' => $test_name,
+                'note' => $note,
                 'result' => $filter
         ];
     }
