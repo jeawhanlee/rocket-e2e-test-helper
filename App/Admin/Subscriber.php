@@ -18,13 +18,21 @@ class Subscriber implements Subscriber_Interface {
     protected $pages;
 
     /**
+     * Notices instance.
+     *
+     * @var Notices
+     */
+    protected $notices;
+
+    /**
      * Instatiate class
      *
      * @param Template $template Template instance.
      * @return void
      */
-    public function __construct( Pages $pages ) {
+    public function __construct( Pages $pages, Notices $notices ) {
         $this->pages = $pages;
+        $this->notices = $notices;
     }
 
 	/**
@@ -35,6 +43,7 @@ class Subscriber implements Subscriber_Interface {
 	public static function get_subscribed_events() : array {
 		return [
 			'admin_menu' => 'admin_menu',
+            'admin_notices' => 'debug_log_notice',
 		];
 	}
 
@@ -51,5 +60,14 @@ class Subscriber implements Subscriber_Interface {
             CONFIG['PLUGIN_ID'],
             [ $this->pages, 'render_views' ]
         );
+    }
+
+    /**
+     * Display notice for wp rocket related warnings/errors in debug.log.
+     *
+     * @return void
+     */
+    public function debug_log_notice() : void {
+        $this->notices->debug_log_notice();
     }
 }
