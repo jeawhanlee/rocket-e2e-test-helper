@@ -11,6 +11,7 @@ use WP_Rocket_e2e\App\Assets\Subscriber as AssetsSubscriber;
 use WP_Rocket_e2e\App\Admin\Template;
 use WP_Rocket_e2e\App\Modules\Cache\Cache;
 use WP_Rocket_e2e\App\Admin\Pages;
+use WP_Rocket_e2e\App\Admin\Notices;
 use WP_Rocket_e2e\App\Admin\Subscriber as AdminSubscriber;
 
 class ServiceProvider extends AbstractServiceProvider {
@@ -24,6 +25,7 @@ class ServiceProvider extends AbstractServiceProvider {
             'pages',
             'admin_subscriber',
             'cache',
+            'notices',
         ];
         
         return in_array( $id, $services );
@@ -44,7 +46,10 @@ class ServiceProvider extends AbstractServiceProvider {
         ->addArgument( $this->getContainer()->get( 'template' ) )
         ->addArgument( $this->getContainer()->get( 'cache' ) );
 
+        $this->getContainer()->add( 'notices', Notices::class );
+
         $this->getContainer()->add( 'admin_subscriber', AdminSubscriber::class )
-        ->addArgument( $this->getContainer()->get( 'pages' ) );
+        ->addArgument( $this->getContainer()->get( 'pages' ) )
+        ->addArgument( $this->getContainer()->get( 'notices' ) );
     }
 }
