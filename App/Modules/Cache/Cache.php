@@ -42,19 +42,48 @@ class Cache {
     }
 
     /**
-     * Check that common cache folder is created when common
+     * Check that only common cache folder is created when common
      * cache is active and caching for logged in user is enabled.
      *
      * @return boolean
      */
-    public function is_common_cache_folder_found() : bool {
+    public function is_common_cache_dir_used_for_users() : bool {
         if ( ! $this->is_common_cache_enabled() ) {
             return false;
         }
 
-        if ( ! rocket_direct_filesystem()->exists( $this->get_cache_root_dir( true, true ) . '/index.html' ) ) {
+        $file_system = rocket_direct_filesystem();
+
+        if ( ! $file_system->exists( $this->get_cache_root_dir( true, true ) . '/index.html' ) ) {
             return false;
         }
+
+        // Get root cache directory list.
+        $cache_root_dir = $file_system->dirlist( rocket_get_constant( 'WP_ROCKET_CACHE_PATH' ) );
+
+        $dir = [];
+
+        // Loop through directory list and add only directories to array.
+        foreach ( $cache_root_dir as $list ) {
+            // Check for directories.
+            if ( ! $file_system->is_dir( rocket_get_constant( 'WP_ROCKET_CACHE_PATH' ) . $list['name'] ) ) {
+                continue;
+            }
+
+            $dir[] = $list['name'];
+        }
+
+        // Get total number of cache directories found from transient.
+        $total_cache_dir = get_transient( 'rocket_e2e_total_cache_dir_with_common_cache_enabled' );
+
+
+        if ( false !== $total_cache_dir ) {
+            delete_transient( 'rocket_e2e_total_cache_dir_with_common_cache_enabled' );
+            return (int) $total_cache_dir === count( $dir );
+        }
+
+        // Save total number of found directories in transient.
+        set_transient( 'rocket_e2e_total_cache_dir_with_common_cache_enabled', count( $dir ) );
 
         return true;
     }
