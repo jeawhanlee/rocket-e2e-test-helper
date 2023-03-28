@@ -13,6 +13,10 @@ class Notices {
      * @return void
      */
     public function debug_log_notice() : void {
+        if ( ! defined( 'WP_DEBUG' ) || ! defined( 'WP_DEBUG_LOG' ) || false === WP_DEBUG || false === WP_DEBUG_LOG ) {
+            return;
+        }
+
         $file_system = rocket_direct_filesystem();
 
         if ( ! $file_system->exists( WP_CONTENT_DIR . '/debug.log' ) ) {
