@@ -7,4 +7,4 @@
         <?php endforeach; ?>
     </ul>
 
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content py-4" id="myTabContent">
