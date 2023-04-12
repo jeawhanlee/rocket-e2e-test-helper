@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 
 <h5>User Cache</h5>
 <div class="row">
