@@ -6,8 +6,9 @@ use League\Container\Container;
 use WP_Rocket_e2e\Events\Event_Manager;
 use WP_Rocket_e2e\App\ServiceProvider as AssetsServiceProvider;
 use WP_Rocket_e2e\App\Modules\ServiceProvider as ModulesServiceProvider;
+use WP_Rocket_e2e\App\Activation_Deactivation;
 
-class Plugin {
+class Plugin extends Activation_Deactivation {
     protected $container;
 
     protected $event_manager;
@@ -29,6 +30,9 @@ class Plugin {
         foreach ( Subscriber::get() as $subscriber ) {
             $this->event_manager->add_subscriber( $this->container->get( $subscriber ) );
         }
+
+        register_activation_hook( CONFIG['PLUGIN_FILE'], [ $this, 'activate' ] );
+        register_deactivation_hook( CONFIG['PLUGIN_FILE'], [ $this, 'deactivate' ] );
     }
 
     private function filter_subscribers() : void {
