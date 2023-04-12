@@ -14,5 +14,8 @@ return [
     'PLUGIN_ID' => 'rocket_e2e_tests_helper',
 
     // Plugin URL.
-    'PLUGIN_URL' => plugin_dir_url( $plugin_file ),
+    'PLUGIN_URL' => $plugin_url = plugin_dir_url( $plugin_file ),
+
+    // Assets Path.
+    'ASSETS_URL' => $plugin_url . 'assets/',
 ];
