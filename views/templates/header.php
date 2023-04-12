@@ -1,3 +1,7 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
+
 <div class="container-fluid py-4 wpr-e2e-container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <?php foreach ( $this->views as $view ) : ?>
