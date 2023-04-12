@@ -2,7 +2,7 @@
 namespace WP_Rocket_e2e\App;
 
 /**
- * 
+ * Activation/Deactivation processes.
  */
 class Activation_Deactivation {
     
