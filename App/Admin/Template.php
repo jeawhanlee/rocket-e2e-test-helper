@@ -58,8 +58,19 @@ class Template {
             'id' => 'addons',
             'pane' => 'addons_pane',
         ],
+        'filters' => [
+            'name' => 'Filters',
+            'id' => 'filters',
+            'pane' => 'filters',
+        ],
     ];
 
+    /**
+     * Hold form data.
+     *
+     * @var array
+     */
+    public $form_data = [];
     
     /**
      * Load module view.
@@ -71,6 +82,8 @@ class Template {
         if ( ! $this->is_valid_module( $id ) ) {
             $id = 'cache';
         }
+
+        $this->form_data = require CONFIG[ 'PLUGIN_PATH' ] . 'views/form_data.php';
 
         require_once CONFIG[ 'PLUGIN_PATH' ] . 'views/modules/' . $id . '.php';
     }
