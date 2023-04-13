@@ -18,4 +18,7 @@ return [
 
     // Assets Path.
     'ASSETS_URL' => $plugin_url . 'assets/',
+
+    // Plugin Option.
+    'PLUGIN_OPTION' => 'wpr_e2e_config',
 ];
