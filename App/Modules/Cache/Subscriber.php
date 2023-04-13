@@ -49,23 +49,33 @@ class Subscriber implements Subscriber_Interface {
         }
 
         $rocket_post_purge_urls = __get_option( 'rocket_post_purge_urls' );
+        
         switch ( $rocket_post_purge_urls ) {
             case 'false_return':
-                return false;
+                $purge_urls[] = false;
+                break;
             case 'null_return':
-                return null;
+                $purge_urls[] = null;
+                break;
             case 'zero':
-                return 0;
+                $purge_urls[] = 0;
+                break;
             case 'empty_string':
-                return '';
+                $purge_urls[] = '';
+                break;
             case 'float':
-                return 2.5;
+                $purge_urls[] = 2.5;
+                break;
             case 'int':
-                return 15;
+                $purge_urls[] = 15;
+                break;
             case 'invalid_array':
-                return ['yy',0,True];
+                $purge_urls[] = ['yy',0,True];
+                break;
             default:
                 return $purge_urls;
         }
+
+        return $purge_urls;
     }
 }
