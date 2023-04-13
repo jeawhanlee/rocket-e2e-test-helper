@@ -41,15 +41,15 @@ class Subscriber implements Subscriber_Interface {
      * Purge urls.
      *
      * @param array $purge_urls urls to purge.
-     * @return mixed
+     * @return array
      */
-    public function purge_urls( array $purge_urls ) {
+    public function purge_urls( array $purge_urls ) : array {
         if ( ! __get_option( 'rocket_post_purge_urls' ) ) {
             return $purge_urls;
         }
 
         $rocket_post_purge_urls = __get_option( 'rocket_post_purge_urls' );
-        
+
         switch ( $rocket_post_purge_urls ) {
             case 'false_return':
                 $purge_urls[] = false;
