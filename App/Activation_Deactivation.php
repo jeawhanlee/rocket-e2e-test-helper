@@ -16,7 +16,7 @@ class Activation_Deactivation {
             'rocket_post_purge_urls' => 'default',
         ];
 
-        add_option( 'wpr_e2e_config', $config );
+        add_option( CONFIG['PLUGIN_OPTION'], $config );
     }
 
     /**
@@ -25,6 +25,6 @@ class Activation_Deactivation {
      * @return void
      */
     public function deactivate() : void {
-        delete_option( 'wpr_e2e_config' );
+        delete_option( CONFIG['PLUGIN_OPTION'] );
     }
 }
