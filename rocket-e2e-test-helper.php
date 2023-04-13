@@ -10,6 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 require 'vendor/autoload.php';
+require_once 'src/functions/helpers.php';
 
 define( 'CONFIG', require_once 'config/app.php' );
 
