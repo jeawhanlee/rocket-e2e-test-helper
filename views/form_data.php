@@ -6,13 +6,19 @@ return [
 
     'filters' => [
         'rocket_post_purge_urls' => [
-            'false_return' => 'false',
-            'null_return' => 'null',
-            'zero' => '0',
-            'empty_string' => '""',
-            'float' => '2.5',
-            'int' => '15',
-            'invalid_array' => '["yy",0,True]',
+            'form_data' => [
+                'default' => 'default',
+                'false_return' => 'false',
+                'null_return' => 'null',
+                'zero' => '0',
+                'empty_string' => '""',
+                'float' => '2.5',
+                'int' => '15',
+                'invalid_array' => '["yy",0,True]',
+            ],
+            'data' => [
+                'rocket_post_purge_urls' => __get_option( 'rocket_post_purge_urls' ) ?? '',
+            ],
         ],
 
         'nonce' => wp_create_nonce( CONFIG['PLUGIN_ID'] . '_filters_form_nonce' ),
