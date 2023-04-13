@@ -20,8 +20,8 @@
                 <label for="rocket_post_purge_urls" class="form-label"><code>rocket_post_purge_urls</code> filter to return:</label>
                 <select class="form-select" name="rocket_post_purge_urls" id="rocket_post_purge_urls" aria-label="rocket_post_purge_urls filter value">
                     <option selected value="">Select a value to return</option>
-                    <?php foreach ( $this->form_data['filters']['rocket_post_purge_urls'] as $key => $value ) : ?>
-                        <option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $value ); ?></option>
+                    <?php foreach ( $this->form_data['filters']['rocket_post_purge_urls']['form_data'] as $key => $value ) : ?>
+                        <option value="<?php echo esc_attr( $key ); ?>" <?php echo $key === $this->form_data['filters']['rocket_post_purge_urls']['data']['rocket_post_purge_urls'] ? 'selected="selected"' : '' ?> ><?php echo esc_html( $value ); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
