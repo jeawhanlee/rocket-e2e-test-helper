@@ -70,7 +70,7 @@ class Subscriber implements Subscriber_Interface {
                 $purge_urls[] = 15;
                 break;
             case 'invalid_array':
-                $purge_urls[] = ['yy',0,True];
+                $purge_urls = ['yy',0,True];
                 break;
             default:
                 return $purge_urls;
