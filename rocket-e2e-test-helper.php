@@ -17,4 +17,5 @@ define( 'CONFIG', require_once 'config/app.php' );
 $config_assets = require_once CONFIG[ 'PLUGIN_PATH' ] . 'config/assets.php';
 
 $plugin = new WP_Rocket_e2e\Plugin( $config_assets, new League\Container\Container );
-$plugin->run();
+
+add_action( 'plugins_loaded', [ $plugin, 'run' ] );
