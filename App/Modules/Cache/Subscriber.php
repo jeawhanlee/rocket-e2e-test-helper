@@ -34,6 +34,7 @@ class Subscriber implements Subscriber_Interface {
 	public static function get_subscribed_events() : array {
 		return [
             'rocket_post_purge_urls' => 'purge_urls',
+            'rocket_exclude_post_taxonomy' => 'exclude_post_taxonomy',
         ];
 	}
 
@@ -79,5 +80,27 @@ class Subscriber implements Subscriber_Interface {
         }
 
         return $purge_urls;
+    }
+
+    /**
+     * Exclude post taxonomy for cache purge.
+     *
+     * @param array $taxonomies Array of taxonomies.
+     * @return array
+     */
+    public function exclude_post_taxonomy( array $taxonomies ) : array {
+        if ( ! __get_option( 'rocket_exclude_post_taxonomy' ) ) {
+            return $taxonomies;
+        }
+
+        $rocket_exclude_post_taxonomy = __get_option( 'rocket_exclude_post_taxonomy' );
+
+        if ( 'default' === $rocket_exclude_post_taxonomy ) {
+            return $taxonomies;
+        }
+        
+        $taxonomies[] = $rocket_exclude_post_taxonomy;
+
+        return $taxonomies;
     }
 }
