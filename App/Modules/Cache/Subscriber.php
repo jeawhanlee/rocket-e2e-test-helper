@@ -72,6 +72,8 @@ class Subscriber implements Subscriber_Interface {
             case 'invalid_array':
                 $purge_urls = ['yy',0,True];
                 break;
+            case 'default':
+                return $purge_urls;
             default:
                 return $purge_urls;
         }
