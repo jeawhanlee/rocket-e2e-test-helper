@@ -16,9 +16,16 @@ return [
                 'int' => '15',
                 'invalid_array' => '["yy",0,True]',
             ],
-            'data' => [
-                'rocket_post_purge_urls' => __get_option( 'rocket_post_purge_urls' ) ?? '',
+            'state' => __get_option( 'rocket_post_purge_urls' ) ?? '',
+        ],
+        'rocket_exclude_post_taxonomy' => [
+            'form_data' => [
+                'default' => 'default',
+                'category' => 'category',
+                'post_tag' => 'post_tag',
+                'product_cat' => 'product_cat',
             ],
+            'state' => __get_option( 'rocket_exclude_post_taxonomy' ) ?? '',
         ],
 
         'nonce' => wp_create_nonce( CONFIG['PLUGIN_ID'] . '_filters_form_nonce' ),
