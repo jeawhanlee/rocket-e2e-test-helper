@@ -14,6 +14,7 @@ class Activation_Deactivation {
     public function activate() : void {
         $config = [
             'rocket_post_purge_urls' => 'default',
+            'rocket_exclude_post_taxonomy' => 'default',
         ];
 
         add_option( CONFIG['PLUGIN_OPTION'], $config );
