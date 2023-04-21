@@ -94,9 +94,11 @@ class Subscriber implements Subscriber_Interface {
 
         if( isset( $_POST[ $nonce_field ] ) && wp_verify_nonce( $_POST[ $nonce_field ], $nonce_field ) ) {
             $rocket_post_purge_urls = sanitize_text_field( $_POST['rocket_post_purge_urls'] );
+            $rocket_exclude_post_taxonomy = sanitize_text_field( $_POST['rocket_exclude_post_taxonomy'] );
 
             $wpr_e2e_config = get_option( 'wpr_e2e_config' );
             $wpr_e2e_config['rocket_post_purge_urls'] = $rocket_post_purge_urls;
+            $wpr_e2e_config['rocket_exclude_post_taxonomy'] = $rocket_exclude_post_taxonomy;
             
             update_option( 'wpr_e2e_config', $wpr_e2e_config );
 
