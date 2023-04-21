@@ -36,8 +36,6 @@ class Plugin extends Activation_Deactivation {
     }
 
     private function filter_subscribers() : void {
-        if ( is_admin() ) {
-            require_once CONFIG[ 'PLUGIN_PATH' ] . 'subscribers/admin.php';
-        }
+        require_once CONFIG[ 'PLUGIN_PATH' ] . 'subscribers/admin.php';
     }
 }
