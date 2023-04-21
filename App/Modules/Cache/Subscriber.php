@@ -9,23 +9,6 @@ use WP_Rocket_e2e\Events\Subscriber_Interface;
  */
 class Subscriber implements Subscriber_Interface {
 
-    /**
-     * Cache instance.
-     *
-     * @var Cache
-     */
-    protected $cache;
-
-    /**
-     * Instatiate class
-     *
-     * @param Cache $cache Cache instance.
-     * @return void
-     */
-    public function __construct( Cache $cache ) {
-        $this->cache = $cache;
-    }
-
 	/**
 	 * Returns array of events this listen to.
 	 *
@@ -34,7 +17,7 @@ class Subscriber implements Subscriber_Interface {
 	public static function get_subscribed_events() : array {
 		return [
             'rocket_post_purge_urls' => 'purge_urls',
-            'rocket_exclude_post_taxonomy' => 'exclude_post_taxonomy',
+            'rocket_exclude_post_taxonomy' => [ 'exclude_post_taxonomy', 12 ],
         ];
 	}
 
